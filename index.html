@@ -1,6 +1,18 @@
 <!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="refresh" content="0;url=tel:+447771919318">
-<script>location.replace("tel:+447771919318");</script>
-<p><a href="tel:+447771919318">Tap to call</a></p>
+<title>…</title>
+<script>
+var p = decodeURIComponent(location.hash.slice(1)).split(",");
+var a = p[0], n = p[1] || "", name = p[2] || "";
+var android = /android/i.test(navigator.userAgent);
+var url = "";
+if (a === "call") url = "tel:" + n;
+else if (a === "sms") url = "sms:" + n;
+else if (a === "save") {
+  url = android
+    ? "intent://contacts/people/#Intent;action=android.intent.action.INSERT;type=vnd.android.cursor.dir/contact;S.phone=" + encodeURIComponent(n) + ";S.name=" + encodeURIComponent(name) + ";end"
+    : "contact.vcf";
+}
+if (url) location.replace(url);
+</script>
